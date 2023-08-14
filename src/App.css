@@ -986,7 +986,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   #SIDEBAR
 \*-----------------------------------*/
 
-.sidebar {
+.sidebar, .cart {
   background: var(--white);
   position: fixed;
   top: 0;

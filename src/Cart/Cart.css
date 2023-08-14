@@ -1,0 +1,23 @@
+.container {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.container h2 {
+  margin-bottom: 30px;
+}
+
+.sidebar .showcase {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar .showcase .metadata {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar {
+  width: 100%;
+}

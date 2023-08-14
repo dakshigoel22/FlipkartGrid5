@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
+import { Link } from "react-router-dom";
 import logo from "../assets/images/logo/logo.jpg";
-import CategoryMenu from "./CategoryMenu/CategoryMenu";
+import "./Header.css";
 
 function Header() {
 
@@ -28,13 +29,13 @@ function Header() {
 
       <div class="container">
 
-        <a href="#" class="header-logo">
+        <Link to={"/"} class="header-logo">
           <img src={logo} alt="header icon"  height="80" />
-        </a>
+        </Link>
 
         <div class="header-search-container">
 
-          <input type="search" name="search " class="search-field" placeholder="Enter your product name..." />
+          <input type="search" name="search" class="search-field" placeholder="How can I help you? - Llama 2" />
 
           <button class="search-btn">
             <ion-icon name="search-outline"></ion-icon>
@@ -44,27 +45,25 @@ function Header() {
 
         <div class="header-user-actions">
 
-          <button class="action-btn">
+          <Link to={"/profile"} class="action-btn">
             <ion-icon name="person-outline"></ion-icon>
-          </button>
+          </Link>
 
-          <button class="action-btn">
+          <Link to={"favourites"} class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
             <span class="count">0</span>
-          </button>
+          </Link>
 
-          <button class="action-btn">
+          <Link to={"/cart"} class="action-btn" >
             <ion-icon name="bag-handle-outline"></ion-icon>
             <span class="count">0</span>
-          </button>
+          </Link>
 
         </div>
 
       </div>
 
     </div>
-
-    <CategoryMenu />
   </header>;
 }
 

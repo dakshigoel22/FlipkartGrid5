@@ -986,7 +986,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   #SIDEBAR
 \*-----------------------------------*/
 
-.sidebar {
+.sidebar, .cart {
   background: var(--white);
   position: fixed;
   top: 0;
@@ -2952,8 +2952,6 @@ footer {
   }
 
   .sidebar-close-btn { display: none; }
-
-  .product-box { min-width: -webkit-calc(75% - 15px); min-width: calc(75% - 15px); }
 
   .product-minimal { margin-bottom: 20px; }
 
