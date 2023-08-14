@@ -7,7 +7,7 @@ function Footer() {
         {/* <!-- <img src="./assets/images/payment.png" alt="payment method" class="payment-img"> --> */}
 
         <p class="copyright">
-          Sparkathon - A Tech Challenge for India’s Student Community
+          Flipkart Grid 5.0, 2023
         </p>
 
       </div>

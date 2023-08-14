@@ -1,5 +1,5 @@
 import { GoogleLogin } from '@react-oauth/google';
-import logo from "../assets/images/logo/logo.jpg"
+import logo from "../assets/images/logo/logo.png"
 
 import "./Signin.css";
 import { useDispatch } from 'react-redux';

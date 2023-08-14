@@ -1,0 +1,30 @@
+.llm-output-text {
+  height: 400px;
+  overflow-y: scroll;
+  width: 60%;
+  margin: 0px auto;
+  scrollbar-width: none;
+  color: var(--davys-gray);
+  line-height: 24px;
+  border-top: 1px solid var(--cultured);
+  padding: 10px 0px;
+}
+
+.llm-output-text::-webkit-scrollbar {
+  display: none;
+}
+
+.regenerate-button {
+  width: 140px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: var(--bittersweet);
+  opacity: 0.8;
+  color: white;
+  font-weight: 500;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto auto;
+}

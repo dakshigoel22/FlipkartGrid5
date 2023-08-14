@@ -1,14 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import { Link } from "react-router-dom";
-import logo from "../assets/images/logo/logo.jpg";
+import logo from "../assets/images/logo/logo.png";
 import "./Header.css";
 import { useSelector } from "react-redux";
+import LLMOutput from "../LLMOutput/LLMOutput";
+import { useState } from "react";
 
 function Header() {
 
   const favourites = useSelector(store => store.favourites);
   const cartItems = useSelector(store => store.cart);
+
+  const [ showLLMOutput, setShowLLMOutput ] = useState(false);
 
   return <header>
     <div class="header-top">
@@ -47,6 +51,15 @@ function Header() {
 
         </div>
 
+        <button className="llm-output-toggle" onClick={
+          (e) => {
+            setShowLLMOutput(!showLLMOutput);
+          }
+        }>
+          { !showLLMOutput && <ion-icon name="chevron-down-outline"></ion-icon> }
+          { showLLMOutput && <ion-icon name="chevron-up-outline"></ion-icon> }
+        </button>
+
         <div class="header-user-actions">
 
           <Link to={"/profile"} class="action-btn">
@@ -66,6 +79,8 @@ function Header() {
         </div>
 
       </div>
+
+      { showLLMOutput && <LLMOutput /> }
 
     </div>
   </header>;

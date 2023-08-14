@@ -1,8 +1,6 @@
-import './assets/css/style-prefix.css';
-import Banner from './Banner/Banner';
+import './App.css';
 import Blogs from './Blogs/Blogs';
 import Footer from './Footer/Footer';
-import CategoryMenu from './Header/CategoryMenu/CategoryMenu';
 import Header from './Header/Header';
 import ProductCategories from './ProductCategories/ProductCategories';
 import ProductGrid from './ProductGrid/ProductGrid';
