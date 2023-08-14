@@ -3,8 +3,12 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo/logo.jpg";
 import "./Header.css";
+import { useSelector } from "react-redux";
 
 function Header() {
+
+  const favourites = useSelector(store => store.favourites);
+  const cartItems = useSelector(store => store.cart);
 
   return <header>
     <div class="header-top">
@@ -51,12 +55,12 @@ function Header() {
 
           <Link to={"favourites"} class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
-            <span class="count">0</span>
+            <span class="count">{ favourites.length }</span>
           </Link>
 
           <Link to={"/cart"} class="action-btn" >
             <ion-icon name="bag-handle-outline"></ion-icon>
-            <span class="count">0</span>
+            <span class="count">{ cartItems.length }</span>
           </Link>
 
         </div>

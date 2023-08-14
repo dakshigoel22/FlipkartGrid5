@@ -1,8 +1,14 @@
-import jacket3 from "../assets/images/products/jacket-3.jpg";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Favourites.css";
+import { removeFavourite } from "../store/favourites/favourites";
+import { addToCart } from "../store/cart/cartSlice";
+import { Link } from "react-router-dom";
 
 function Favourites() {
+  const favourites = useSelector(store => store.favourites);
+  const dispatch = useDispatch();
+
   return <>
     <div class="product-box">
       <div class="favourites">
@@ -11,20 +17,26 @@ function Favourites() {
 
         <div class="product-grid">
 
-          <div class="showcase">
+          { favourites.map((product, index) => <div className="showcase">
 
             <div class="showcase-banner">
-
-              <img src={jacket3} alt="Mens Winter Leathers Jackets" width="300" class="product-img default" />
-              <img src={jacket3} alt="Mens Winter Leathers Jackets" width="300" class="product-img hover" />
+              <Link to={'/product/' + product.id}>
+                <img src={product.image} alt="Mens Winter Leathers Jackets" width="300" class="product-img default" />
+                <img src={product.image} alt="Mens Winter Leathers Jackets" width="300" class="product-img hover" />
+              </Link>
 
               <div class="showcase-actions">
 
-                <button class="btn-action">
-                  <ion-icon name="heart-outline"></ion-icon>
+                <button class="btn-action"
+                  onClick={(e) => {
+                    dispatch(removeFavourite(index))
+                  }}>
+                  <ion-icon name="heart-dislike-outline"></ion-icon>
                 </button>
 
-                <button class="btn-action">
+                <button class="btn-action" onClick={(e) => {
+                  dispatch(addToCart(product));
+                }}>
                   <ion-icon name="bag-add-outline"></ion-icon>
                 </button>
 
@@ -34,160 +46,24 @@ function Favourites() {
 
             <div class="showcase-content">
 
-              <a href="#" class="showcase-category">Brand</a>
+              <div class="showcase-category">{ product.brand }</div>
 
-              <a href="#">
-                <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
-              </a>
+              <Link to={'/product/' + product.id}>
+                <h3 class="showcase-title">{ product.title }</h3>
+              </Link>
 
               <div class="showcase-rating">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
+                {Array.from({ length: product.rating }, (value, index) => <ion-icon name="star"></ion-icon> )}
+                {Array.from({ length: 5 - product.rating }, (value, index) => <ion-icon name="star-outline"></ion-icon> )}
               </div>
 
               <div class="price-box">
-                <p class="price">$48.00</p>
-                <del>$75.00</del>
+                <p class="price">${ product.discount_price }</p>
+                <del>${ product.price }</del>
               </div>
             </div>
-          </div>
+          </div> )}
 
-
-          <div class="showcase">
-
-            <div class="showcase-banner">
-
-              <img src={jacket3} alt="Mens Winter Leathers Jackets" width="300" class="product-img default" />
-              <img src={jacket3} alt="Mens Winter Leathers Jackets" width="300" class="product-img hover" />
-
-              <div class="showcase-actions">
-
-                <button class="btn-action">
-                  <ion-icon name="heart-outline"></ion-icon>
-                </button>
-
-                <button class="btn-action">
-                  <ion-icon name="bag-add-outline"></ion-icon>
-                </button>
-
-              </div>
-
-            </div>
-
-            <div class="showcase-content">
-
-              <a href="#" class="showcase-category">Brand</a>
-
-              <a href="#">
-                <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
-              </a>
-
-              <div class="showcase-rating">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-              </div>
-
-              <div class="price-box">
-                <p class="price">$48.00</p>
-                <del>$75.00</del>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="showcase">
-
-            <div class="showcase-banner">
-
-              <img src={jacket3} alt="Mens Winter Leathers Jackets" width="300" class="product-img default" />
-              <img src={jacket3} alt="Mens Winter Leathers Jackets" width="300" class="product-img hover" />
-
-              <div class="showcase-actions">
-
-                <button class="btn-action">
-                  <ion-icon name="heart-outline"></ion-icon>
-                </button>
-
-                <button class="btn-action">
-                  <ion-icon name="bag-add-outline"></ion-icon>
-                </button>
-
-              </div>
-
-            </div>
-
-            <div class="showcase-content">
-
-              <a href="#" class="showcase-category">brand</a>
-
-              <a href="#">
-                <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
-              </a>
-
-              <div class="showcase-rating">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-              </div>
-
-              <div class="price-box">
-                <p class="price">$48.00</p>
-                <del>$75.00</del>
-              </div>
-            </div>
-          </div>
-
-          <div class="showcase">
-
-            <div class="showcase-banner">
-
-              <img src={jacket3} alt="Mens Winter Leathers Jackets" width="300" class="product-img default" />
-              <img src={jacket3} alt="Mens Winter Leathers Jackets" width="300" class="product-img hover" />
-
-              <div class="showcase-actions">
-
-                <button class="btn-action">
-                  <ion-icon name="heart-outline"></ion-icon>
-                </button>
-
-                <button class="btn-action">
-                  <ion-icon name="bag-add-outline"></ion-icon>
-                </button>
-
-              </div>
-
-            </div>
-
-            <div class="showcase-content">
-
-              <a href="#" class="showcase-category">Brand</a>
-
-              <a href="#">
-                <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
-              </a>
-
-              <div class="showcase-rating">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-              </div>
-
-              <div class="price-box">
-                <p class="price">$48.00</p>
-                <del>$75.00</del>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

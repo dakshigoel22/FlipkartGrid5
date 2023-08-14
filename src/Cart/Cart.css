@@ -18,6 +18,17 @@
   justify-content: space-between;
 }
 
-.sidebar {
+.sidebar.cart {
+  max-width: 100%;
   width: 100%;
+}
+
+.cart-item-title {
+  color: var(--onyx);
+  font-size: var(--fs-7);
+  font-weight: var(--weight-400);
+}
+
+.sidebar.cart .showcase-content {
+  width: auto;
 }
