@@ -12,6 +12,8 @@ function ProductCategories() {
 
       <div class="container">
 
+        <h6>[TODO] Show prompt history here...</h6>
+
         <div class="category-item-container has-scrollbar">
 
           <div class="category-item">

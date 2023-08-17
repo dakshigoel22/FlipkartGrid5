@@ -5,6 +5,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSliceReducer from "./user/userSlice";
 import favouriteReducer from "./favourites/favourites";
 import cartReducer from "./cart/cartSlice";
+import dashboardReducer from "./dashboard/dashboardSlice";
+import purchaseHistoryReducer from "./purchaseHistory/purchaseHistory";
 
 export const history = createBrowserHistory();
 
@@ -12,7 +14,9 @@ export const history = createBrowserHistory();
 const rootReducer = (history) => ({
   user: userSliceReducer,
   favourites: favouriteReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  dashboard: dashboardReducer,
+  purchaseHistory: purchaseHistoryReducer
 });
 
 const preloadedState = {};

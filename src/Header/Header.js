@@ -6,33 +6,40 @@ import "./Header.css";
 import { useSelector } from "react-redux";
 import LLMOutput from "../LLMOutput/LLMOutput";
 import { useState } from "react";
+import { getInferenceAsync } from "../api/inference";
 
 function Header() {
 
   const favourites = useSelector(store => store.favourites);
   const cartItems = useSelector(store => store.cart);
+  const purchaseHistory = useSelector(store => store.purchaseHistory);
+
+  const token = useSelector(store => store.user.token);
 
   const [ showLLMOutput, setShowLLMOutput ] = useState(false);
 
+  const [ prompt, setPrompt ] = useState('');
+  const [ responses, setResponses ] = useState([]);
+
+  const handlePrompt = (e) => {
+    let code = (e.keyCode ? e.keyCode : e.which);
+
+    if (code === 13) {
+      const requestedPrompt = prompt;
+      setPrompt('');
+
+      getInferenceAsync(prompt, token).then((res) => {
+        console.log(res.data)
+        setResponses([{
+          prompt: requestedPrompt,
+          text: res.data
+        }, ...responses]);
+        setShowLLMOutput(true);
+      })
+    }
+  };
+
   return <header>
-    <div class="header-top">
-
-      <div class="container">
-
-        <ul class="header-social-container"></ul>
-
-        <div class="header-alert-news">
-          <p>
-            <b>Free Shipping</b> This Week Order
-          </p>
-        </div>
-
-        <div class="header-top-actions"></div>
-
-      </div>
-
-    </div>
-
     <div class="header-main">
 
       <div class="container">
@@ -43,10 +50,16 @@ function Header() {
 
         <div class="header-search-container">
 
-          <input type="search" name="search" class="search-field" placeholder="How can I help you? - Llama 2" />
+          <input type="search"
+                 name="search"
+                 class="search-field"
+                 placeholder="How can I help you? - Llama 2"
+                 value={prompt}
+                 onChange={(e) => setPrompt(e.target.value)}
+                 onKeyDown={handlePrompt} />
 
           <button class="search-btn">
-            <ion-icon name="search-outline"></ion-icon>
+            <ion-icon name="send-sharp"></ion-icon>
           </button>
 
         </div>
@@ -68,19 +81,25 @@ function Header() {
 
           <Link to={"favourites"} class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
-            <span class="count">{ favourites.length }</span>
+            { favourites.length > 0 && <span class="count">{ favourites.length }</span>}
           </Link>
 
           <Link to={"/cart"} class="action-btn" >
             <ion-icon name="bag-handle-outline"></ion-icon>
-            <span class="count">{ cartItems.length }</span>
+            { cartItems.length > 0 && <span class="count">{ cartItems.length }</span>}
+          </Link>
+
+          <Link to={"/payment_history"} class="action-btn">
+            <ion-icon name="reorder-four-outline"></ion-icon>
+
+            { purchaseHistory.length > 0 && <span className="count">{ purchaseHistory.length }</span>}
           </Link>
 
         </div>
 
       </div>
 
-      { showLLMOutput && <LLMOutput /> }
+      <LLMOutput expand={showLLMOutput} responses={ responses } />
 
     </div>
   </header>;

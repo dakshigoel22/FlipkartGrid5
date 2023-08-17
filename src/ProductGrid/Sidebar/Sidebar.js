@@ -1,17 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import dress from "../../assets/images/icons/dress.svg";
-import shoes from "../../assets/images/icons/shoes.svg";
-import jewelry from "../../assets/images/icons/jewelry.svg"
-import perfume from "../../assets/images/icons/perfume.svg";
-import cosmetics from "../../assets/images/icons/cosmetics.svg";
-import glasses from "../../assets/images/icons/glasses.svg"
-import bag from "../../assets/images/icons/bag.svg";
-import product1 from "../../assets/images/products/1.jpg";
-import product2 from "../../assets/images/products/2.jpg";
-import product3 from "../../assets/images/products/3.jpg";
-import product4 from "../../assets/images/products/4.jpg";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
+  const dashboard = useSelector(store => store.dashboard);
+
   return <div class="sidebar has-scrollbar" data-mobile-menu>
     <div class="sidebar-category">
 
@@ -25,15 +18,15 @@ function Sidebar() {
 
       <ul class="sidebar-menu-category-list">
 
-        <li class="sidebar-menu-category">
+        { dashboard && dashboard.categories && dashboard.categories.map((category) => <li class="sidebar-menu-category">
 
-          <button class="sidebar-accordion-menu" data-accordion-btn>
+          <Link to={'/category/' + category.id} class="sidebar-accordion-menu">
 
             <div class="menu-title-flex">
-              <img src={dress} alt="clothes" width="20" height="20"
+              <img src={category.icon_url} alt="clothes" width="20" height="20"
                 class="menu-title-img" />
 
-              <p class="menu-title">Clothes</p>
+              <p class="menu-title">{ category.title }</p>
             </div>
 
             <div>
@@ -41,9 +34,9 @@ function Sidebar() {
               <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
             </div>
 
-          </button>
+          </Link>
 
-          <ul class="sidebar-submenu-category-list" data-accordion>
+          {/* <ul class="sidebar-submenu-category-list" data-accordion>
 
             <li class="sidebar-submenu-category">
               <a href="#" class="sidebar-submenu-title">
@@ -73,299 +66,9 @@ function Sidebar() {
               </a>
             </li>
 
-          </ul>
+          </ul> */}
 
-        </li>
-
-        <li class="sidebar-menu-category">
-
-          <button class="sidebar-accordion-menu" data-accordion-btn>
-
-            <div class="menu-title-flex">
-              <img src={shoes} alt="footwear" class="menu-title-img" width="20"
-                height="20" />
-
-              <p class="menu-title">Footwear</p>
-            </div>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-
-          </button>
-
-          <ul class="sidebar-submenu-category-list" data-accordion>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Sports</p>
-                <data value="45" class="stock" title="Available Stock">45</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Formal</p>
-                <data value="75" class="stock" title="Available Stock">75</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Casual</p>
-                <data value="35" class="stock" title="Available Stock">35</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Safety Shoes</p>
-                <data value="26" class="stock" title="Available Stock">26</data>
-              </a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="sidebar-menu-category">
-
-          <button class="sidebar-accordion-menu" data-accordion-btn>
-
-            <div class="menu-title-flex">
-              <img src={jewelry} alt="clothes" class="menu-title-img" width="20"
-                height="20" />
-
-              <p class="menu-title">Jewelry</p>
-            </div>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-
-          </button>
-
-          <ul class="sidebar-submenu-category-list" data-accordion>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Earrings</p>
-                <data value="46" class="stock" title="Available Stock">46</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Couple Rings</p>
-                <data value="73" class="stock" title="Available Stock">73</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Necklace</p>
-                <data value="61" class="stock" title="Available Stock">61</data>
-              </a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="sidebar-menu-category">
-
-          <button class="sidebar-accordion-menu" data-accordion-btn>
-
-            <div class="menu-title-flex">
-              <img src={perfume} alt="perfume" class="menu-title-img" width="20"
-                height="20" />
-
-              <p class="menu-title">Perfume</p>
-            </div>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-
-          </button>
-
-          <ul class="sidebar-submenu-category-list" data-accordion>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Clothes Perfume</p>
-                <data value="12" class="stock" title="Available Stock">12 pcs</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Deodorant</p>
-                <data value="60" class="stock" title="Available Stock">60 pcs</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">jacket</p>
-                <data value="50" class="stock" title="Available Stock">50 pcs</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">dress & frock</p>
-                <data value="87" class="stock" title="Available Stock">87 pcs</data>
-              </a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="sidebar-menu-category">
-
-          <button class="sidebar-accordion-menu" data-accordion-btn>
-
-            <div class="menu-title-flex">
-              <img src={cosmetics} alt="cosmetics" class="menu-title-img" width="20"
-                height="20" />
-
-              <p class="menu-title">Cosmetics</p>
-            </div>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-
-          </button>
-
-          <ul class="sidebar-submenu-category-list" data-accordion>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Shampoo</p>
-                <data value="68" class="stock" title="Available Stock">68</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Sunscreen</p>
-                <data value="46" class="stock" title="Available Stock">46</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Body Wash</p>
-                <data value="79" class="stock" title="Available Stock">79</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Makeup Kit</p>
-                <data value="23" class="stock" title="Available Stock">23</data>
-              </a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="sidebar-menu-category">
-
-          <button class="sidebar-accordion-menu" data-accordion-btn>
-
-            <div class="menu-title-flex">
-              <img src={glasses} alt="glasses" class="menu-title-img" width="20"
-                height="20" />
-
-              <p class="menu-title">Glasses</p>
-            </div>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-
-          </button>
-
-          <ul class="sidebar-submenu-category-list" data-accordion>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Sunglasses</p>
-                <data value="50" class="stock" title="Available Stock">50</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Lenses</p>
-                <data value="48" class="stock" title="Available Stock">48</data>
-              </a>
-            </li>
-
-          </ul>
-
-        </li>
-
-        <li class="sidebar-menu-category">
-
-          <button class="sidebar-accordion-menu" data-accordion-btn>
-
-            <div class="menu-title-flex">
-              <img src={bag} alt="bags" class="menu-title-img" width="20" height="20" />
-
-              <p class="menu-title">Bags</p>
-            </div>
-
-            <div>
-              <ion-icon name="add-outline" class="add-icon"></ion-icon>
-              <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
-            </div>
-
-          </button>
-
-          <ul class="sidebar-submenu-category-list" data-accordion>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Shopping Bag</p>
-                <data value="62" class="stock" title="Available Stock">62</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Gym Backpack</p>
-                <data value="35" class="stock" title="Available Stock">35</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Purse</p>
-                <data value="80" class="stock" title="Available Stock">80</data>
-              </a>
-            </li>
-
-            <li class="sidebar-submenu-category">
-              <a href="#" class="sidebar-submenu-title">
-                <p class="product-name">Wallet</p>
-                <data value="75" class="stock" title="Available Stock">75</data>
-              </a>
-            </li>
-
-          </ul>
-
-        </li>
+        </li> ) }
 
       </ul>
 
@@ -379,122 +82,35 @@ function Sidebar() {
 
         <div class="showcase-container">
 
-          <div class="showcase">
+          { dashboard && dashboard.bestSellers && dashboard.bestSellers.map((product) => <div class="showcase">
 
-            <a href="#" class="showcase-img-box">
-              <img src={product1} alt="baby fabric shoes" width="75" height="75"
+            <Link to={'/product/' + product.id} class="showcase-img-box">
+              <img src={product.image_url} alt="baby fabric shoes" width="75" height="75"
                 class="showcase-img" />
-            </a>
+            </Link>
 
             <div class="showcase-content">
 
-              <a href="#">
-                <h4 class="showcase-title">baby fabric shoes</h4>
-              </a>
+              <Link to={'/product/' + product.id}>
+                <h4 class="showcase-title">{ product.title }</h4>
+              </Link>
 
               <div class="showcase-rating">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
+                {Array.from({ length: Math.floor(product.rating) },
+                  (value, index) => <ion-icon name="star"></ion-icon> )}
+
+                {Array.from({ length: Math.ceil(5 - product.rating) },
+                  (value, index) => <ion-icon name="star-outline"></ion-icon> )}
               </div>
 
               <div class="price-box">
-                <del>$5.00</del>
-                <p class="price">$4.00</p>
+                <del>${ product.actual_price }</del>
+                <p class="price">${ product.selling_price }</p>
               </div>
 
             </div>
 
-          </div>
-
-          <div class="showcase">
-
-            <a href="#" class="showcase-img-box">
-              <img src={product2} alt="men's hoodies t-shirt" class="showcase-img"
-                width="75" height="75" />
-            </a>
-
-            <div class="showcase-content">
-
-              <a href="#">
-                <h4 class="showcase-title">men's hoodies t-shirt</h4>
-              </a>
-              <div class="showcase-rating">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star-half-outline"></ion-icon>
-              </div>
-
-              <div class="price-box">
-                <del>$17.00</del>
-                <p class="price">$7.00</p>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="showcase">
-
-            <a href="#" class="showcase-img-box">
-              <img src={product3} alt="girls t-shirt" class="showcase-img" width="75"
-                height="75" />
-            </a>
-
-            <div class="showcase-content">
-
-              <a href="#">
-                <h4 class="showcase-title">girls t-shirt</h4>
-              </a>
-              <div class="showcase-rating">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star-half-outline"></ion-icon>
-              </div>
-
-              <div class="price-box">
-                <del>$5.00</del>
-                <p class="price">$3.00</p>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="showcase">
-
-            <a href="#" class="showcase-img-box">
-              <img src={product4} alt="woolen hat for men" class="showcase-img" width="75"
-                height="75" />
-            </a>
-
-            <div class="showcase-content">
-
-              <a href="#">
-                <h4 class="showcase-title">woolen hat for men</h4>
-              </a>
-              <div class="showcase-rating">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-              </div>
-
-              <div class="price-box">
-                <del>$15.00</del>
-                <p class="price">$12.00</p>
-              </div>
-
-            </div>
-
-          </div>
+          </div> ) }
 
         </div>
 

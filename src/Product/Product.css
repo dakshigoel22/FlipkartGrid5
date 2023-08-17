@@ -52,7 +52,6 @@
       -ms-flex-align: center;
           align-items: center;
   gap: 15px;
-  margin-bottom: 30px;
 }
 
 .product-price-box del {
@@ -86,20 +85,45 @@
 
 .product-review-author {
   font-weight: 500;
+  font-size: var(--fs-6);
   color: var(--davys-gray);
 }
 
 .product-review-description {
   color: var(--davys-gray);
-  font-size: var(--fs-8);
+  font-size: var(--fs-7);
   padding: 10px 0px;
+  font-style: italic;
 }
 
 .product-review-timestamp {
-  font-size: var(--fs-10);
+  font-size: var(--fs-9);
   color: var(--davys-gray);
 }
 
 .product-reviews h3 {
   margin-bottom: 15px;
+}
+
+.product-price-box {
+  margin-bottom: 20px;
+}
+
+.product-description-title {
+  margin-top: 20px;
+}
+
+.product-category {
+  font-size: var(--fs-8);
+  color: var(--davys-gray);
+  text-transform: capitalize;
+}
+
+.product-category:hover {
+  color: var(--salmon-pink);
+}
+
+.product-review {
+  border-bottom: 1px solid var(--cultured);
+  margin-bottom: 10px;
 }

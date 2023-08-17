@@ -8,8 +8,12 @@ const userSlice = createSlice({
     email: '',
     age: null,
     gender: null,
+    location: null
   },
   reducers: {
+    setUser: (state, action) => {
+      return action.payload;
+    },
     setToken: (state, action) => {
       state.token = action.payload;
     },
@@ -20,6 +24,7 @@ const userSlice = createSlice({
         email: '',
         age: null,
         gender: null,
+        location: null
       }
     },
     updateName: (state, action) => {
@@ -33,10 +38,14 @@ const userSlice = createSlice({
     },
     updateGender: (state, action) => {
       state.gender = action.payload;
+    },
+    updateLocation: (state, action) => {
+      state.location = action.payload;
     }
   }
 });
 
-export const { updateAge, updateEmail, updateGender, updateName, setToken, signout } = userSlice.actions;
+export const { setUser, updateAge, updateEmail, updateGender,
+  updateName, updateLocation, setToken, signout } = userSlice.actions;
 
 export default userSlice.reducer;

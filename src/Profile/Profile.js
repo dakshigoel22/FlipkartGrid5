@@ -1,4 +1,6 @@
 import "./Profile.css";
+import { googleLogout } from '@react-oauth/google';
+
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -6,7 +8,12 @@ import Select from '@mui/material/Select';
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux";
-import { signout, updateName, updateAge,updateGender, updateEmail } from "../store/user/userSlice";
+import { signout, updateName, updateAge,
+  updateGender, updateEmail, updateLocation } from "../store/user/userSlice";
+import { updateProfileAPI } from "../api/user_profile";
+
+import toast from 'react-hot-toast';
+
 
 function Profile() {
   const user = useSelector(store => store.user);
@@ -34,7 +41,8 @@ function Profile() {
                      value={user.email}
                      onChange={(e) => {
                       dispatch(updateEmail(e.target.value))
-                     }} />
+                     }}
+                     disabled />
         </FormControl>
       </div>
       <div className="grid-item">
@@ -51,26 +59,55 @@ function Profile() {
         </FormControl>
       </div>
 
-      <FormControl fullWidth>
-        <InputLabel>Gender</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Age"
-          value={ user.gender }
-          onChange={(e) => {
-            dispatch(updateGender(e.target.value))
-          }}
-        >
-          <MenuItem value="male">Male</MenuItem>
-          <MenuItem value="female">Female</MenuItem>
-        </Select>
-      </FormControl>
+      <div className="grid-item">
+        <FormControl fullWidth>
+          <InputLabel>Gender</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Age"
+            value={ user.gender }
+            onChange={(e) => {
+              dispatch(updateGender(e.target.value))
+            }}
+          >
+            <MenuItem value="M">Male</MenuItem>
+            <MenuItem value="F">Female</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+
+      <div className="grid-item">
+        <FormControl fullWidth>
+          <TextField
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Location"
+            value={ user.location }
+            onChange={(e) => {
+              dispatch(updateLocation(e.target.value))
+            }}
+           />
+        </FormControl>
+      </div>
     </div>
     <div className="bottom-buttons">
-      <Button variant="contained">Save</Button>
+      <Button variant="contained" onClick={async (e) => {
+          await updateProfileAPI(user, user.token);
+          localStorage.setItem('user', JSON.stringify(user));
+
+          toast.success('Saved')
+        }}>
+        Save
+      </Button>
+
       <Button variant="outlined" color="error" onClick={(e) => {
-        dispatch(signout())
+        localStorage.removeItem('user');
+        localStorage.removeItem('favourites');
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('dashboard');
+        googleLogout();
+        dispatch(signout());
       }}>Sign Out</Button>
     </div>
   </div>;

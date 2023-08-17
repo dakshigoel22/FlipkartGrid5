@@ -1,13 +1,33 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import "./Favourites.css";
-import { removeFavourite } from "../store/favourites/favourites";
+import { removeFavourite, setFavourites } from "../store/favourites/favourites";
 import { addToCart } from "../store/cart/cartSlice";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { getFavouritesAPI, removeFavouritesAsync } from "../api/user_profile";
+import toast from "react-hot-toast";
+import { addToCartAsync } from "../api/user_profile";
 
 function Favourites() {
   const favourites = useSelector(store => store.favourites);
+  const token = useSelector(store => store.user.token);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    const favourites = localStorage.getItem('favourites');
+
+    if (favourites) dispatch(setFavourites(JSON.parse(favourites)));
+
+    getFavouritesAPI(token).then((res) => {
+      const resData = res.data.map((item) => item.product);
+
+      dispatch(setFavourites(resData));
+
+      localStorage.setItem('favourites', JSON.stringify(resData))
+    })
+  }, []);
 
   return <>
     <div class="product-box">
@@ -21,25 +41,28 @@ function Favourites() {
 
             <div class="showcase-banner">
               <Link to={'/product/' + product.id}>
-                <img src={product.image} alt="Mens Winter Leathers Jackets" width="300" class="product-img default" />
-                <img src={product.image} alt="Mens Winter Leathers Jackets" width="300" class="product-img hover" />
+                <img src={product.image_url} alt="Mens Winter Leathers Jackets" width="300" class="product-img default" />
+                <img src={product.image_url} alt="Mens Winter Leathers Jackets" width="300" class="product-img hover" />
               </Link>
 
-              <div class="showcase-actions">
+              <div className="showcase-actions">
+                <button class="btn-action" onClick={async e => {
+                    await removeFavouritesAsync(product.id, token);
 
-                <button class="btn-action"
-                  onClick={(e) => {
-                    dispatch(removeFavourite(index))
+                    dispatch(removeFavourite(product));
+                    toast.success('Add to favourites')
                   }}>
                   <ion-icon name="heart-dislike-outline"></ion-icon>
                 </button>
 
-                <button class="btn-action" onClick={(e) => {
-                  dispatch(addToCart(product));
-                }}>
+                <button class="btn-action" onClick={async e => {
+
+                    await addToCartAsync(product.id, token);
+                    dispatch(addToCart(product));
+                    toast.success('Added to cart')
+                  }}>
                   <ion-icon name="bag-add-outline"></ion-icon>
                 </button>
-
               </div>
 
             </div>
@@ -53,13 +76,13 @@ function Favourites() {
               </Link>
 
               <div class="showcase-rating">
-                {Array.from({ length: product.rating }, (value, index) => <ion-icon name="star"></ion-icon> )}
-                {Array.from({ length: 5 - product.rating }, (value, index) => <ion-icon name="star-outline"></ion-icon> )}
+                {Array.from({ length: Math.floor(product.rating) }, (value, index) => <ion-icon name="star"></ion-icon> )}
+                {Array.from({ length: Math.ceil(5 - product.rating) }, (value, index) => <ion-icon name="star-outline"></ion-icon> )}
               </div>
 
               <div class="price-box">
-                <p class="price">${ product.discount_price }</p>
-                <del>${ product.price }</del>
+                <p class="price">${ product.selling_price }</p>
+                <del>${ product.actual_price }</del>
               </div>
             </div>
           </div> )}
